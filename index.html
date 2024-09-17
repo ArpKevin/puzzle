@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style id="inlineCSS">
+        div {
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        #keret div {
+            position: absolute;
+            display: inline-block;
+            background-color: gray;
+            border: 1px dashed white;
+            transition: all 1s;
+            background-image: url('tilitoli.jpg');
+            background-repeat: no-repeat;
+        }
+    </style>
+    <script>
+        let keret = null;
+        let lyuk = { className: '' };
+
+        function panelInit(mx, my) {
+            let is = document.getElementById('inlineCSS');
+            let w = Math.round(100 / mx, 2);
+            let h = Math.round(100 / my, 2);
+
+            let n = "";
+            keret.innerHTML = "";
+
+            for (let x = 1; x <= mx; x++) {
+                for (let y = 1; y <= my; y++) {
+                    n = `tt-${x}-${y}`;
+                    is.innerHTML += `div.${n} {width: ${w}%; height: ${h}%; left: ${(x - 1) * w}%; top: ${(y - 1) * h}%; background-size: ${mx * 100}% ${my * 100}%}\n`
+                    let d = document.createElement('DIV');
+                    d.setAttribute('id', n);
+                    d.setAttribute('class', n);
+                    // d.setAttribute('style', `width: ${w}%; height: ${h}%; left: ${(x - 1) * w}%; top: ${(y - 1) * h}%; background-size: ${mx * 100}% ${my * 100}%`);
+                    d.setAttribute('onclick', 'tiliToli(this)');
+                    d.innerHTML = n;
+                    if (x < mx || y < my) keret.appendChild(d);
+                }
+            }
+            lyuk.className = n;
+        }
+
+        function tiliToli(e) {
+            let csere = e.className;
+            if (Math.abs(parseInt(e.className[3]) - parseInt(lyuk.className[3])) + Math.abs(parseInt(e.className[5]) - parseInt(lyuk.className[5])) === 1) {
+                e.className = lyuk.className;
+                lyuk.className = csere;
+            }
+            kevert = false;
+            for (let i = 0; i < keret.children.length; i++) if (keret.children[i].className != keret.children[i].id) kevert = true;
+            keret.style.borderColor = (kevert ? "red" : "green");
+        }
+    </script>
+</head>
+
+<body style="margin:0px" onload="keret=document.getElementById('keret');panelInit(4,4)">
+    <div id="keret" style="width: 500px; height: 500px; border: 10px solid green;"></div>
+
+</body>
+
+</html>
