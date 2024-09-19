@@ -27,8 +27,8 @@
 
         function panelInit(mx, my) {
             let is = document.getElementById('inlineCSS');
-            let w = Math.round(100 / mx, 2);
-            let h = Math.round(100 / my, 2);
+            let w = (100 / mx).toFixed(5);
+            let h = (100 / my).toFixed(5);
 
             let n = "";
             keret.innerHTML = "";
@@ -40,7 +40,7 @@
                     let d = document.createElement('DIV');
                     d.setAttribute('id', n);
                     d.setAttribute('class', n);
-                    // d.setAttribute('style', `width: ${w}%; height: ${h}%; left: ${(x - 1) * w}%; top: ${(y - 1) * h}%; background-size: ${mx * 100}% ${my * 100}%`);
+                    d.setAttribute('style', `background-position: ${((x - 1) * (100 / (mx - 1))).toFixed(5)}% ${((y - 1) * (100 / (my - 1))).toFixed(5)}%`);
                     d.setAttribute('onclick', 'tiliToli(this)');
                     d.innerHTML = n;
                     if (x < mx || y < my) keret.appendChild(d);
